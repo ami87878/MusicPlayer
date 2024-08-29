@@ -1,0 +1,309 @@
+/* styles.css */
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+
+    font-size: 62.5%;
+
+    @media only screen and (max-width:600px) {
+        font-size: 50%;
+
+    }
+
+    ;
+
+    @media only screen and (max-width:420px) {
+        font-size: 45%;
+
+    }
+
+}
+
+span{
+    color: #009688;
+    font-weight: 800;
+}
+
+body {
+
+    font-family: 'Lato' sans-serif;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
+#login-container {
+    background-color: white;
+    padding: 3rem 2rem;
+    border-radius: 0.8rem;
+    box-shadow: 1rem 1rem 4rem rgba(0, 0, 0, 0.4);
+    text-align: center;
+    width: 50rem;
+    margin: 12% auto;
+
+
+
+}
+
+
+.login__heading {
+
+    font-size:2rem;
+    text-transform: uppercase;
+    display: inline-block;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right bottom, rgb(226, 123, 0), rgb(166, 255, 0));
+
+}
+
+
+
+#home-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: none;
+    width: 100%;
+
+}
+
+input:focus {
+    outline: 0.2rem solid yellowgreen;
+}
+
+.login__input--1,
+.login__input--2 {
+    outline: 0.2rem solid #cd3232;
+
+}
+
+.suggest {
+
+    font-size: 1.4rem;
+    text-transform: uppercase;
+
+}
+
+.suggest__link,
+.suggest__link:active,
+.suggest__link:visited {
+
+    text-decoration: none;
+    color: chocolate;
+}
+
+.suggest__link:hover {
+    color: #f0560f;
+}
+
+input {
+    width: 90%;
+    padding: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border: 0.1rem solid #ccc;
+    border-radius: 0.4rem;
+
+}
+
+input::placeholder {
+    width: 90%;
+    padding: 1rem;
+    margin-top: 2rem;
+    border: 0.1rem solid #ccc;
+    border-radius: 0.4rem;
+    text-transform: uppercase;
+
+
+}
+
+.login-btn,
+.login-btn:link {
+    padding: 1.2rem 2rem;
+    margin: 3rem auto;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    background-color: #269e09cc;
+    color: white;
+    font-size: 1.6rem;
+    text-transform: none;
+    transition: all 0.5rem;
+    box-shadow: 0 0.5rem 2rem black;
+
+}
+
+#login-btn:hover,
+#login-btn:active {
+
+    padding: 1.2rem 2rem;
+    margin: 3rem auto;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    background-color: #269e09cc;
+    color: white;
+    font-size: 1.6rem;
+    text-transform: none;
+    display: inline-block;
+    transition: all 0.3s;
+    transform: translateY(-0.3rem);
+    box-shadow: 0 0.5rem 3rem black;
+}
+
+#g_id_onload,
+.g_id_signin {
+    margin: 2rem auto;
+    width: 70%;
+}
+
+#log-box {
+    margin-top: 2rem;
+}
+
+
+.login__box {
+
+    margin: 0 auto;
+}
+
+#log-list {
+    list-style: none;
+    padding: 0;
+}
+
+a,
+a:active,
+a:link,
+a:visited {
+
+    color: white;
+    text-decoration: none;
+}
+
+
+
+
+
+
+.modal,.modal2 {
+
+    width: 45rem;
+    height: 40rem;
+    background-image: linear-gradient(to right bottom, #FBC02D, #FFF9C4, #FF5722);
+    z-index: 1000;
+    display: none;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    margin: -4rem 33%;
+    border-radius: 0.8rem;
+    text-align: center;
+    padding: 3rem;
+    
+}
+
+.modal__message,.modal2__message {
+
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    color: #210750;
+    
+}
+
+
+
+
+.modal__btn,.modal__btn2 {
+
+    border: none;
+    background-color: #ca0f6c;
+    padding: 2rem 5rem;
+    border: 0.2rem solid white;
+    border-radius: 0.8rem;
+    color: azure;
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+
+
+
+.diactive2,.diactive {
+
+    filter: blur(3px);
+    
+}
+
+
+
+
+.noneBlur {
+
+    filter: none;
+}
+
+
+
+
+.modal__btn:hover,
+.modal__btn2:hover {
+
+    /* background-color: #ff8800 ; */
+    background-color: #009688 ;
+    
+}
+
+.InvalidP,.InvalidP2 {
+    font-size: 1.5rem;
+    margin: 1rem auto;
+    text-transform: uppercase;
+    color: red;
+    display: none;
+    animation-name: charkhesh;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in;
+}
+
+
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@keyframes charkhesh {
+
+    0% {
+        opacity: 0;
+        transform: translateY(-3rem)
+    };
+
+    
+
+    100% {
+        opacity: 1;
+        transform: translateY(0rem)
+    };
+}
