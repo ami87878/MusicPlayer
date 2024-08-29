@@ -106,7 +106,7 @@ input:focus {
 .suggest__link:visited {
 
     text-decoration: none;
-    color: chocolate;
+    color: #d2691e;
 }
 
 .suggest__link:hover {
