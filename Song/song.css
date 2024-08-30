@@ -84,7 +84,7 @@ body {
     border-radius: 0.5rem;
     transition: all 0.2s;
 
-    @media only screen and (max-width:37.5em) {
+    @media only screen and (max-width:600px) {
         width: 100%;
     }
 }
@@ -227,7 +227,7 @@ body {
     color: white;
     text-align: center;
 
-    @media only screen and (max-width:37.5em) {
+    @media only screen and (max-width:600px) {
 
         width: 100%;
         margin: -5rem auto;
@@ -339,7 +339,7 @@ body {
     flex-wrap: wrap;
     flex-direction: row;
     border-radius: 0.5rem;
-    @media only screen and (max-width:37.5em) {
+    @media only screen and (max-width:600px) {
         /* 428px */
         margin-top: 10rem;
     }
