@@ -82,6 +82,7 @@ const music = new Audio();
 let musicIndex = 0;
 let isPlaying = false;
 
+
 const bars = document.querySelectorAll(".bar");
 
 const timeMaker = function (time) {
@@ -92,29 +93,28 @@ RecordBtn[0].addEventListener("click", function () {
   saveBox.innerHTML = "";
   if (!localStorage.getItem("musicRecords")) {
     const section = `
+      
+      <div class='content__text'>
     
-    <div class='content__text'>
-  
-    nothing recorded yet
-    </div>
-  
-    `;
+      nothing recorded yet
+      </div>
+    
+      `;
     saveBox.insertAdjacentHTML("afterbegin", section);
   } else {
-    const musicRecordsArr = [
-      ...JSON.parse(localStorage.getItem("musicRecords")),
-    ];
+    const musicRecordsArr = JSON.parse(localStorage.getItem("musicRecords"));
+    
     musicRecordsArr.map(function (item, index) {
       let part = `
-    
-         <div class='content__text'> music starts at ${
-           item.startTime
-         } and pause at
-          ${item.TimeOfPause ? item.TimeOfPause : "not pause"}
-    
-        and end at ${item.endTime}
-    
-       </div>`;
+      
+           <div class='content__text'> music starts at ${
+             item.startTime
+           } and pause at
+            ${item.TimeOfPause ? item.TimeOfPause : "not pause"}
+      
+          and end at ${item.endTime ? item.endTime : "not ended"}
+      
+         </div>`;
 
       saveBox.insertAdjacentHTML("afterbegin", part);
     });
@@ -128,9 +128,7 @@ RecordBtn[1].addEventListener("click", function () {
 const playMusicFunc = function () {
   const startTime = new Date().toLocaleTimeString();
   localStorage.setItem("startTime", startTime);
-
   isPlaying = true;
-
   music.play();
 };
 
@@ -138,10 +136,8 @@ const playMusicFunc = function () {
 const pauseMusicFunc = function () {
   const pauseTime = new Date().toLocaleTimeString();
   localStorage.setItem("pauseTime", pauseTime);
-
   playBtb.textContent = "▶";
   isPlaying = false;
-
   music.pause();
 };
 
@@ -216,6 +212,75 @@ const btnEvents = () => {
   nextBtb.addEventListener("click", () => changeMusic(1));
   prevBtb.addEventListener("click", () => changeMusic(-1));
   //========= Progressbar===========================
+ // null update the pause time
+  music.addEventListener("play", () => {
+    const startTime = new Date().toLocaleTimeString();
+    const TimeOfPause = null;
+    const endTime = localStorage.getItem("endTime");
+    const records = JSON.parse(localStorage.getItem("musicRecords")) || [];
+    records.push({ startTime, endTime, TimeOfPause });
+    localStorage.setItem("musicRecords", JSON.stringify(records));
+
+    const musicRecordsStr = localStorage.getItem("musicRecords");
+    console.log(musicRecordsStr)
+    saveBox.innerHTML = "";
+
+    if (musicRecordsStr) {
+     // const musicRecordsArr = JSON.parse(musicRecordsStr);
+      
+        let part = `
+      
+           <div class='content__text'> play   music starts  at ${ startTime ? startTime : "not start" } 
+    
+         </div>`;
+
+        saveBox.insertAdjacentHTML("afterbegin", part);
+  
+    } else {
+      let part = `
+      
+      <div class='content__text'> 
+      
+      you have not record music yet
+      </div>`;
+      saveBox.insertAdjacentHTML("afterbegin", part);
+    }
+  });
+
+  music.addEventListener("pause", () => {
+    const endTime = localStorage.getItem("endTime");
+    const startTime = localStorage.getItem("startTime");
+    const TimeOfPause = new Date().toLocaleTimeString();
+
+    const records = JSON.parse(localStorage.getItem("musicRecords")) || [];
+    records.push({ startTime, endTime, TimeOfPause });
+    localStorage.setItem("musicRecords", JSON.stringify(records));
+
+    const musicRecordsStr = localStorage.getItem("musicRecords");
+
+    saveBox.innerHTML = "";
+
+    if (musicRecordsStr) {
+    
+      
+        let part = `
+      
+           <div class='content__text'> 
+            music Pause  at ${TimeOfPause ? TimeOfPause : "not pause"}
+         </div>`;
+
+        saveBox.insertAdjacentHTML("afterbegin", part);
+
+    } else {
+      let part = `
+      
+      <div class='content__text'> 
+      
+      you have not record music yet
+      </div>`;
+      saveBox.insertAdjacentHTML("afterbegin", part);
+    }
+  });
 
   music.addEventListener("ended", () => {
     const endTime = new Date().toLocaleTimeString();
@@ -231,28 +296,24 @@ const btnEvents = () => {
     saveBox.innerHTML = "";
 
     if (musicRecordsStr) {
-      const musicRecordsArr = [...JSON.parse(musicRecordsStr)];
-      musicRecordsArr.map(function (item, index) {
+      
+      
         let part = `
-    
-         <div class='content__text'> music starts at ${
-           item.startTime
-         } and pause at
-          ${item.TimeOfPause ? item.TimeOfPause : "not pause"}
-    
-        and end at ${item.endTime}
-    
-       </div>`;
+      
+           <div class='content__text'> 
+             music end   at ${endTime ? endTime : "not end"}
+      
+         </div>`;
 
         saveBox.insertAdjacentHTML("afterbegin", part);
-      });
+      
     } else {
       let part = `
-    
-    <div class='content__text'> 
-    
-    you have not record music yet
-    </div>`;
+      
+      <div class='content__text'> 
+      
+      you have not record music yet
+      </div>`;
       saveBox.insertAdjacentHTML("afterbegin", part);
     }
   });
