@@ -329,7 +329,7 @@ body {
 
 .save-box {
     width: 80%;
-    background-color: #d0e0a2;
+    background-image: linear-gradient(to right bottom,#6ec546,#d0e0a2);
     padding: 6rem 4rem;
     margin: -12rem auto;
     margin-bottom: 4rem;
@@ -349,17 +349,24 @@ body {
 
 .toggleClass{
     display: none;
+    
 }
 #content {
     display: flex;
     flex-direction: column;
     margin-right: 10rem;
+
     
 }
 
 .content__text {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     text-align: center;
+    display: inline-block;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(to right bottom,#000000,#00b7ffb9);
+    color: transparent;
+
     
 }
 .content__text:first-child {
@@ -381,7 +388,7 @@ body {
     align-self: start;
 }
 .check {
-    background-color: rgb(184, 82, 82);
+    background-color: #b85252;
     width: 12rem;
     padding: 1rem;
     color: #fff;
@@ -390,9 +397,13 @@ body {
     font-size: 1.6rem;
     border-radius: 0.7rem;
     cursor: pointer;
-  
+
 }
 
+.check:hover{
+    
+    background-color: #ff9900;
+}
 .check:not(:last-child){
     margin-bottom: 2rem;
 } 
