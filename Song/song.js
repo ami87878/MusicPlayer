@@ -347,52 +347,20 @@ sideBarItems.forEach((item, index) => {
 
 // ابتدا بررسی می‌کنیم که مرورگر Media Session API را پشتیبانی می‌کند یا خیر
 if ('mediaSession' in navigator) {
-  
-  // تنظیم اطلاعات موزیک برای نوتیفیکیشن
-  navigator.mediaSession.metadata = new MediaMetadata({
-    title: songs[musicIndex].displayName,
-    artist: songs[musicIndex].artist,
-    album: 'HipHop', 
-    artwork: [
-      { src: songs[musicIndex].cover, sizes: '96x96', type: 'image/jpeg' },
-      { src: songs[musicIndex].cover, sizes: '128x128', type: 'image/jpeg' },
-      { src: songs[musicIndex].cover, sizes: '192x192', type: 'image/jpeg' },
-      { src: songs[musicIndex].cover, sizes: '256x256', type: 'image/jpeg' },
-      { src: songs[musicIndex].cover, sizes: '384x384', type: 'image/jpeg' },
-      { src: songs[musicIndex].cover, sizes: '512x512', type: 'image/jpeg' }
-    ]
-  });
 
-  
-  // کنترل‌های پخش موزیک (Play, Pause, Next, Previous)
-  navigator.mediaSession.setActionHandler('play', function() {
-    
-    playMusicFunc();  // اجرای تابع پخش موزیک
-    updateMediaSession();
-    
-  });
-  
-  navigator.mediaSession.setActionHandler('pause', function() {
-    pauseMusicFunc();  // اجرای تابع توقف موزیک
-    updateMediaSession();
-  });
+  // وقتی موزیک جدید لود می‌شود، نوتیفیکیشن را تنظیم و به‌روزرسانی می‌کنیم
+  loadMusic = function(songs) {
+    music.src = songs.path;
+    musicTitleEl.textContent = songs.displayName;
+    musicArtistEl.textContent = songs.artist;
+    imgCoverEl.src = songs.cover;
+    musicTitleH3.textContent = songs.displayName;
 
-  navigator.mediaSession.setActionHandler('previoustrack', function() {
-    changeMusic(-1);  // اجرای تابع تغییر موزیک به قبلی
-    updateMediaSession();
-  });
-
-  navigator.mediaSession.setActionHandler('nexttrack', function() {
-    changeMusic(1);  // اجرای تابع تغییر موزیک به بعدی
-    updateMediaSession();
-  });
-
-  // وقتی موزیک تغییر می‌کند یا پخش می‌شود، اطلاعات نوتیفیکیشن باید به‌روزرسانی شوند
-  const updateMediaSession = function() {
+    // تنظیم اطلاعات اولیه موزیک برای Media Session
     navigator.mediaSession.metadata = new MediaMetadata({
       title: songs[musicIndex].displayName,
       artist: songs[musicIndex].artist,
-      album: 'HipHop new release',
+      album: 'HipHop', // آلبوم اولیه
       artwork: [
         { src: songs[musicIndex].cover, sizes: '96x96', type: 'image/jpeg' },
         { src: songs[musicIndex].cover, sizes: '128x128', type: 'image/jpeg' },
@@ -404,19 +372,36 @@ if ('mediaSession' in navigator) {
     });
   };
 
-  // وقتی موزیک جدید لود می‌شود، نوتیفیکیشن را به‌روزرسانی می‌کنیم
-  loadMusic = function(songs) {
-    music.src = songs.path;
-    musicTitleEl.textContent = songs.displayName;
-    musicArtistEl.textContent = songs.artist;
-    imgCoverEl.src = songs.cover;
-    musicTitleH3.textContent = songs.displayName;
-    updateMediaSession();  // به‌روزرسانی Media Session
+  // کنترل‌های پخش موزیک (Play, Pause, Next, Previous)
+  navigator.mediaSession.setActionHandler('play', function() {
+    playMusicFunc();  // اجرای تابع پخش موزیک
+    updateMediaSession(); // به‌روزرسانی در هنگام پخش
+  });
+
+  navigator.mediaSession.setActionHandler('pause', function() {
+    pauseMusicFunc();  // اجرای تابع توقف موزیک
+    updateMediaSession(); // به‌روزرسانی در هنگام توقف
+  });
+
+  navigator.mediaSession.setActionHandler('previoustrack', function() {
+    changeMusic(-1);  // اجرای تابع تغییر موزیک به قبلی
+    updateMediaSession(); // به‌روزرسانی در هنگام تغییر به موزیک قبلی
+  });
+
+  navigator.mediaSession.setActionHandler('nexttrack', function() {
+    changeMusic(1);  // اجرای تابع تغییر موزیک به بعدی
+    updateMediaSession(); // به‌روزرسانی در هنگام تغییر به موزیک بعدی
+  });
+
+  // تابع به‌روزرسانی Media Session (در صورت نیاز به تغییر اطلاعات)
+  const updateMediaSession = function() {
+    navigator.mediaSession.metadata.album = 'HipHop new release'; // تغییر آلبوم در صورت نیاز
+    // اطلاعات دیگر می‌توانند به روز شوند یا ثابت بمانند
   };
- loadMusic(songs[musicIndex]);
-}
-else{
-  console.log('browser not supported')
+
+  loadMusic(songs[musicIndex]); // لود موزیک جدید
+} else {
+  console.log('browser not supported');
 }
 
 //notification
