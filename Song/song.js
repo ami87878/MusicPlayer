@@ -108,7 +108,7 @@ RecordBtn[0].addEventListener("click", function () {
       let part = `
       
            <div class='content__text'> music starts at ${
-             item.startTime
+             item.startTime ? item.startTime: "not start"
            } and pause at
             ${item.TimeOfPause ? item.TimeOfPause : "not pause"}
       
@@ -409,7 +409,7 @@ if ('mediaSession' in navigator) {
     musicTitleH3.textContent = songs.displayName;
     updateMediaSession();  // به‌روزرسانی Media Session
   };
-
+ loadMusic(songs[musicIndex]);
 }
 else{
   console.log('browser not supported')
