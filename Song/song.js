@@ -352,7 +352,7 @@ if ('mediaSession' in navigator) {
   navigator.mediaSession.metadata = new MediaMetadata({
     title: songs[musicIndex].displayName,
     artist: songs[musicIndex].artist,
-    album: 'HipHop', // می‌توانید این مقدار را تغییر دهید
+    album: 'HipHop', 
     artwork: [
       { src: songs[musicIndex].cover, sizes: '96x96', type: 'image/jpeg' },
       { src: songs[musicIndex].cover, sizes: '128x128', type: 'image/jpeg' },
@@ -409,6 +409,7 @@ if ('mediaSession' in navigator) {
     musicTitleH3.textContent = songs.displayName;
     updateMediaSession();  // به‌روزرسانی Media Session
   };
+  loadMusic(songs); // adding this feature for test
 }
 else{
   console.log('browser not supported')
