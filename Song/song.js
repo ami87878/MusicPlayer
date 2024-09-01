@@ -388,7 +388,7 @@ if ('mediaSession' in navigator) {
   });
 
   // وقتی موزیک تغییر می‌کند یا پخش می‌شود، اطلاعات نوتیفیکیشن باید به‌روزرسانی شوند
-  const updateMediaSession = function() {
+  function updateMediaSession() {
     navigator.mediaSession.metadata = new MediaMetadata({
       title: songs[musicIndex].displayName,
       artist: songs[musicIndex].artist,
