@@ -376,6 +376,10 @@ if ('mediaSession' in navigator) {
     pauseMusicFunc();  // اجرای تابع توقف موزیک
     updateMediaSession();
   });
+  navigator.mediaSession.setActionHandler('stop', function() {
+    pauseMusicFunc();  // اجرای تابع توقف موزیک
+    updateMediaSession();
+  });
 
   navigator.mediaSession.setActionHandler('previoustrack', function() {
     changeMusic(-1);  // اجرای تابع تغییر موزیک به قبلی
