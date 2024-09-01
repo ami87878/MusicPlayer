@@ -409,7 +409,7 @@ if ('mediaSession' in navigator) {
     musicTitleH3.textContent = songs.displayName;
     updateMediaSession();  // به‌روزرسانی Media Session
   };
-  loadMusic(songs); // adding this feature for test
+
 }
 else{
   console.log('browser not supported')
