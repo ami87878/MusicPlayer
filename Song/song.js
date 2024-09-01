@@ -388,7 +388,7 @@ if ('mediaSession' in navigator) {
     navigator.mediaSession.metadata = new MediaMetadata({
       title: songs[musicIndex].displayName,
       artist: songs[musicIndex].artist,
-      album: 'Your Album Name',
+      album: 'HipHop new release',
       artwork: [
         { src: songs[musicIndex].cover, sizes: '96x96', type: 'image/jpeg' },
         { src: songs[musicIndex].cover, sizes: '128x128', type: 'image/jpeg' },
