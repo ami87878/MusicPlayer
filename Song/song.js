@@ -368,19 +368,23 @@ if ('mediaSession' in navigator) {
   navigator.mediaSession.setActionHandler('play', function() {
     
     playMusicFunc();  // اجرای تابع پخش موزیک
+    updateMediaSession();
     
   });
   
   navigator.mediaSession.setActionHandler('pause', function() {
     pauseMusicFunc();  // اجرای تابع توقف موزیک
+    updateMediaSession();
   });
 
   navigator.mediaSession.setActionHandler('previoustrack', function() {
     changeMusic(-1);  // اجرای تابع تغییر موزیک به قبلی
+    updateMediaSession();
   });
 
   navigator.mediaSession.setActionHandler('nexttrack', function() {
     changeMusic(1);  // اجرای تابع تغییر موزیک به بعدی
+    updateMediaSession();
   });
 
   // وقتی موزیک تغییر می‌کند یا پخش می‌شود، اطلاعات نوتیفیکیشن باید به‌روزرسانی شوند
