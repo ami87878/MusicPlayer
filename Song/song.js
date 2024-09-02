@@ -84,11 +84,12 @@ let isPlaying = false;
 
 
 const bars = document.querySelectorAll(".bar");
-
+ // set time like digital clock
 const timeMaker = function (time) {
   return String(Math.floor(time)).padStart(2, "0");
 };
 
+// show result in savebox
 RecordBtn[0].addEventListener("click", function () {
   saveBox.innerHTML = "";
   if (!localStorage.getItem("musicRecords")) {
@@ -121,18 +122,21 @@ RecordBtn[0].addEventListener("click", function () {
   }
   saveBox.style.display = "flex";
 });
+
+// hide records of save box
 RecordBtn[1].addEventListener("click", function () {
   saveBox.style.display = "none";
 });
 
-const playMusicFunc = function () {
+// play music func
+const playMusicFunc = async function () {
   const startTime = new Date().toLocaleTimeString();
   localStorage.setItem("startTime", startTime);
   isPlaying = true;
-  music.play();
+  await music.play();
 };
 
-//pause music
+//pause func music
 const pauseMusicFunc = function () {
   const pauseTime = new Date().toLocaleTimeString();
   localStorage.setItem("pauseTime", pauseTime);
@@ -145,12 +149,12 @@ const pauseMusicFunc = function () {
 const toggelMusic = () => (isPlaying ? pauseMusicFunc() : playMusicFunc());
 
 //load music
-function loadMusic(songs) {
-  music.src = songs.path;
-  musicTitleEl.textContent = songs.displayName;
-  musicArtistEl.textContent = songs.artist;
-  imgCoverEl.src = songs.cover;
-  musicTitleH3.textContent = songs.displayName;
+function loadMusic(song) {
+  music.src = song.path;
+  musicTitleEl.textContent = song.displayName;
+  musicArtistEl.textContent = song.artist;
+  imgCoverEl.src = song.cover;
+  musicTitleH3.textContent = song.displayName;
 }
 
 // change music
@@ -182,6 +186,7 @@ const setProgresBar = function (e) {
   const clampedXValue = Math.min(xValue, maxOffset);
   const progressPercent = clampedXValue / width;
   music.currentTime = progressPercent * music.duration;
+  
 };
 
 //set progress
@@ -191,12 +196,8 @@ function updateProgressBar() {
   progressEl.style.width = `${ProgressPercent}%`;
   const formattime = (timeRanges) =>
     String(Math.floor(timeRanges)).padStart(2, "0");
-  durationEl.textContent = `${formattime(duration / 60)} : ${formattime(
-    duration % 60
-  )}`;
-  currentTimeEl.textContent = `${formattime(currentTime / 60)} : ${formattime(
-    currentTime % 60
-  )}`;
+  durationEl.textContent = `${formattime(duration / 60) } : ${formattime(duration % 60)} ` ;
+  currentTimeEl.textContent = `${formattime(currentTime / 60)} : ${formattime(currentTime % 60)}`;
 }
 
 // rotate
@@ -344,8 +345,7 @@ sideBarItems.forEach((item, index) => {
 
 //notification
 
-
-// ابتدا بررسی می‌کنیم که مرورگر Media Session API را پشتیبانی می‌کند یا خیر
+// browser supported or not
 if ('mediaSession' in navigator) {
   
   // تنظیم اطلاعات موزیک برای نوتیفیکیشن
@@ -363,31 +363,34 @@ if ('mediaSession' in navigator) {
     ]
   });
 
-  
   // کنترل‌های پخش موزیک (Play, Pause, Next, Previous)
-  navigator.mediaSession.setActionHandler('play', function() {
-    
-    playMusicFunc();  // اجرای تابع پخش موزیک
+  navigator.mediaSession.setActionHandler('play', async function() {
+    await playMusicFunc();  // اجرای تابع پخش موزیک
+    navigator.mediaSession.playbackState = "playing";  // به‌روزرسانی وضعیت پخش
     updateMediaSession();
-    
   });
-  
+
   navigator.mediaSession.setActionHandler('pause', function() {
     pauseMusicFunc();  // اجرای تابع توقف موزیک
+    navigator.mediaSession.playbackState = "paused";  // به‌روزرسانی وضعیت پخش
     updateMediaSession();
   });
+
   navigator.mediaSession.setActionHandler('stop', function() {
     pauseMusicFunc();  // اجرای تابع توقف موزیک
+    navigator.mediaSession.playbackState = "paused";  // به‌روزرسانی وضعیت پخش
     updateMediaSession();
   });
 
   navigator.mediaSession.setActionHandler('previoustrack', function() {
     changeMusic(-1);  // اجرای تابع تغییر موزیک به قبلی
+    navigator.mediaSession.playbackState = "playing";  // به‌روزرسانی وضعیت پخش
     updateMediaSession();
   });
 
   navigator.mediaSession.setActionHandler('nexttrack', function() {
     changeMusic(1);  // اجرای تابع تغییر موزیک به بعدی
+    navigator.mediaSession.playbackState = "playing";  // به‌روزرسانی وضعیت پخش
     updateMediaSession();
   });
 
@@ -406,7 +409,7 @@ if ('mediaSession' in navigator) {
         { src: songs[musicIndex].cover, sizes: '512x512', type: 'image/jpeg' }
       ]
     });
-  };
+  }
 
   // وقتی موزیک جدید لود می‌شود، نوتیفیکیشن را به‌روزرسانی می‌کنیم
   loadMusic = function(songs) {
@@ -417,10 +420,11 @@ if ('mediaSession' in navigator) {
     musicTitleH3.textContent = songs.displayName;
     updateMediaSession();  // به‌روزرسانی Media Session
   };
- loadMusic(songs[musicIndex]);
-}
-else{
-  console.log('browser not supported')
+
+  loadMusic(songs[musicIndex]);
+
+} else {
+  console.log('browser not supported');
 }
 
 //notification
