@@ -129,7 +129,7 @@ RecordBtn[1].addEventListener("click", function () {
 });
 
 // play music func
-const playMusicFunc = async function () {
+ async function playMusicFunc () {
   const startTime = new Date().toLocaleTimeString();
   localStorage.setItem("startTime", startTime);
   isPlaying = true;
@@ -346,55 +346,92 @@ sideBarItems.forEach((item, index) => {
 //notification
 
 // browser supported or not
-if ('mediaSession' in navigator) {
+// if ('mediaSession' in navigator) {
   
-  // تنظیم اطلاعات موزیک برای نوتیفیکیشن
-  navigator.mediaSession.metadata = new MediaMetadata({
-    title: songs[musicIndex].displayName,
-    artist: songs[musicIndex].artist,
-    album: 'HipHop', 
-    artwork: [
-      { src: songs[musicIndex].cover, sizes: '96x96', type: 'image/jpeg' },
-      { src: songs[musicIndex].cover, sizes: '128x128', type: 'image/jpeg' },
-      { src: songs[musicIndex].cover, sizes: '192x192', type: 'image/jpeg' },
-      { src: songs[musicIndex].cover, sizes: '256x256', type: 'image/jpeg' },
-      { src: songs[musicIndex].cover, sizes: '384x384', type: 'image/jpeg' },
-      { src: songs[musicIndex].cover, sizes: '512x512', type: 'image/jpeg' }
-    ]
-  });
+//   // تنظیم اطلاعات موزیک برای نوتیفیکیشن
+//   navigator.mediaSession.metadata = new MediaMetadata({
+//     title: songs[musicIndex].displayName,
+//     artist: songs[musicIndex].artist,
+//     album: 'HipHop', 
+//     artwork: [
+//       { src: songs[musicIndex].cover, sizes: '96x96', type: 'image/jpeg' },
+//       { src: songs[musicIndex].cover, sizes: '128x128', type: 'image/jpeg' },
+//       { src: songs[musicIndex].cover, sizes: '192x192', type: 'image/jpeg' },
+//       { src: songs[musicIndex].cover, sizes: '256x256', type: 'image/jpeg' },
+//       { src: songs[musicIndex].cover, sizes: '384x384', type: 'image/jpeg' },
+//       { src: songs[musicIndex].cover, sizes: '512x512', type: 'image/jpeg' }
+//     ]
+//   });
 
-  // کنترل‌های پخش موزیک (Play, Pause, Next, Previous)
-  navigator.mediaSession.setActionHandler('play', async function() {
-    await playMusicFunc();  // اجرای تابع پخش موزیک
-    navigator.mediaSession.playbackState = "playing";  // به‌روزرسانی وضعیت پخش
-    updateMediaSession();
-  });
+//   // کنترل‌های پخش موزیک (Play, Pause, Next, Previous)
+//   navigator.mediaSession.setActionHandler('play', async function() {
+//     await playMusicFunc();  // اجرای تابع پخش موزیک
+//     navigator.mediaSession.playbackState = "playing";  // به‌روزرسانی وضعیت پخش
+//     updateMediaSession();
+//   });
 
-  navigator.mediaSession.setActionHandler('pause', function() {
-    pauseMusicFunc();  // اجرای تابع توقف موزیک
-    navigator.mediaSession.playbackState = "paused";  // به‌روزرسانی وضعیت پخش
-    updateMediaSession();
-  });
+//   navigator.mediaSession.setActionHandler('pause', function() {
+//     pauseMusicFunc();  // اجرای تابع توقف موزیک
+//     navigator.mediaSession.playbackState = "paused";  // به‌روزرسانی وضعیت پخش
+//     updateMediaSession();
+//   });
 
-  navigator.mediaSession.setActionHandler('stop', function() {
-    pauseMusicFunc();  // اجرای تابع توقف موزیک
-    navigator.mediaSession.playbackState = "paused";  // به‌روزرسانی وضعیت پخش
-    updateMediaSession();
-  });
+//   navigator.mediaSession.setActionHandler('stop', function() {
+//     pauseMusicFunc();  // اجرای تابع توقف موزیک
+//     navigator.mediaSession.playbackState = "paused";  // به‌روزرسانی وضعیت پخش
+//     updateMediaSession();
+//   });
 
-  navigator.mediaSession.setActionHandler('previoustrack', function() {
-    changeMusic(-1);  // اجرای تابع تغییر موزیک به قبلی
-    navigator.mediaSession.playbackState = "playing";  // به‌روزرسانی وضعیت پخش
-    updateMediaSession();
-  });
+//   navigator.mediaSession.setActionHandler('previoustrack', function() {
+//     changeMusic(-1);  // اجرای تابع تغییر موزیک به قبلی
+//     navigator.mediaSession.playbackState = "playing";  // به‌روزرسانی وضعیت پخش
+//     updateMediaSession();
+//   });
 
-  navigator.mediaSession.setActionHandler('nexttrack', function() {
-    changeMusic(1);  // اجرای تابع تغییر موزیک به بعدی
-    navigator.mediaSession.playbackState = "playing";  // به‌روزرسانی وضعیت پخش
-    updateMediaSession();
-  });
+//   navigator.mediaSession.setActionHandler('nexttrack', function() {
+//     changeMusic(1);  // اجرای تابع تغییر موزیک به بعدی
+//     navigator.mediaSession.playbackState = "playing";  // به‌روزرسانی وضعیت پخش
+//     updateMediaSession();
+//   });
 
-  // وقتی موزیک تغییر می‌کند یا پخش می‌شود، اطلاعات نوتیفیکیشن باید به‌روزرسانی شوند
+//   // وقتی موزیک تغییر می‌کند یا پخش می‌شود، اطلاعات نوتیفیکیشن باید به‌روزرسانی شوند
+//   function updateMediaSession() {
+//     navigator.mediaSession.metadata = new MediaMetadata({
+//       title: songs[musicIndex].displayName,
+//       artist: songs[musicIndex].artist,
+//       album: 'HipHop new release',
+//       artwork: [
+//         { src: songs[musicIndex].cover, sizes: '96x96', type: 'image/jpeg' },
+//         { src: songs[musicIndex].cover, sizes: '128x128', type: 'image/jpeg' },
+//         { src: songs[musicIndex].cover, sizes: '192x192', type: 'image/jpeg' },
+//         { src: songs[musicIndex].cover, sizes: '256x256', type: 'image/jpeg' },
+//         { src: songs[musicIndex].cover, sizes: '384x384', type: 'image/jpeg' },
+//         { src: songs[musicIndex].cover, sizes: '512x512', type: 'image/jpeg' }
+//       ]
+//     });
+//   }
+
+//   // وقتی موزیک جدید لود می‌شود، نوتیفیکیشن را به‌روزرسانی می‌کنیم
+//   loadMusic = function(songs) {
+//     music.src = songs.path;
+//     musicTitleEl.textContent = songs.displayName;
+//     musicArtistEl.textContent = songs.artist;
+//     imgCoverEl.src = songs.cover;
+//     musicTitleH3.textContent = songs.displayName;
+//     updateMediaSession();  // به‌روزرسانی Media Session
+//   };
+
+//   loadMusic(songs[musicIndex]);
+
+// } else {
+//   console.log('browser not supported');
+// }
+
+
+
+
+if ('mediaSession' in navigator) {
+  // تنظیم metadata
   function updateMediaSession() {
     navigator.mediaSession.metadata = new MediaMetadata({
       title: songs[musicIndex].displayName,
@@ -411,8 +448,39 @@ if ('mediaSession' in navigator) {
     });
   }
 
-  // وقتی موزیک جدید لود می‌شود، نوتیفیکیشن را به‌روزرسانی می‌کنیم
-  loadMusic = function(songs) {
+  // هندلرهای مدیا کنترل
+  navigator.mediaSession.setActionHandler('play', async function() {
+    await playMusicFunc();  // اجرای تابع پخش موزیک
+    navigator.mediaSession.playbackState = "playing";  // به‌روزرسانی وضعیت پخش
+    updateMediaSession();  // به‌روزرسانی metadata
+  });
+
+  navigator.mediaSession.setActionHandler('pause', function() {
+    pauseMusicFunc();  // اجرای تابع توقف موزیک
+    navigator.mediaSession.playbackState = "paused";  // به‌روزرسانی وضعیت پخش
+    updateMediaSession();  // به‌روزرسانی metadata
+  });
+
+  navigator.mediaSession.setActionHandler('stop', function() {
+    pauseMusicFunc();  // اجرای تابع توقف موزیک
+    navigator.mediaSession.playbackState = "paused";  // به‌روزرسانی وضعیت پخش
+    updateMediaSession();  // به‌روزرسانی metadata
+  });
+
+  navigator.mediaSession.setActionHandler('previoustrack', function() {
+    changeMusic(-1);  // اجرای تابع تغییر موزیک به قبلی
+    navigator.mediaSession.playbackState = "playing";  // به‌روزرسانی وضعیت پخش
+    updateMediaSession();  // به‌روزرسانی metadata
+  });
+
+  navigator.mediaSession.setActionHandler('nexttrack', function() {
+    changeMusic(1);  // اجرای تابع تغییر موزیک به بعدی
+    navigator.mediaSession.playbackState = "playing";  // به‌روزرسانی وضعیت پخش
+    updateMediaSession();  // به‌روزرسانی metadata
+  });
+
+  // وقتی موزیک جدید لود می‌شود
+    function loadMusic(songs) {
     music.src = songs.path;
     musicTitleEl.textContent = songs.displayName;
     musicArtistEl.textContent = songs.artist;
@@ -421,8 +489,8 @@ if ('mediaSession' in navigator) {
     updateMediaSession();  // به‌روزرسانی Media Session
   };
 
+  // لود موزیک اولیه
   loadMusic(songs[musicIndex]);
-
 } else {
   console.log('browser not supported');
 }
