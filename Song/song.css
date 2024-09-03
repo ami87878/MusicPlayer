@@ -24,20 +24,20 @@ html {
         font-size: 50%;
     }
 
-    @media only screen and (max-width:600px) {
-        /* 600px */
-        font-size: 45%;
+    @media only screen and (max-width:37.5em) {
+        /* 37.5em */
+        font-size: 48%;
     }
 
     @media only screen and (max-width:33.875em) {
-        /* 600px */
-        font-size: 40%;
+        /* 37.5em */
+        font-size: 45%;
     }
 
     @media only screen and (max-width:30.875em) {
 
-        /* 600px */
-        font-size: 35%;
+        /* 37.5em */
+        font-size: 40%;
     }
 
 }
@@ -62,7 +62,7 @@ body {
     justify-content: space-between;
     flex-direction: row-reverse;
 
-    @media only screen and (max-width:600px) {
+    @media only screen and (max-width:37.5em) {
         flex-direction: column;
         justify-content: center;
     }
@@ -76,15 +76,15 @@ body {
 }
 
 .side__right {
-    background-image: linear-gradient(to right bottom, rgb(165, 199, 179),
-            rgb(136, 182, 155), rgba(255, 166, 0, 0.945));
+    background-image: linear-gradient(to right bottom, #a5c7b3,
+            rgb(136, 182, 155), #ffa600f1);
     width: 50%;
     height: 40rem;
     margin: 18rem auto;
     border-radius: 0.5rem;
     transition: all 0.2s;
 
-    @media only screen and (max-width:600px) {
+    @media only screen and (max-width:37.5em) {
         width: 100%;
     }
 }
@@ -134,7 +134,7 @@ body {
 
 .player__arrows:hover {
     transform: scale(1);
-    border: 0.2rem solid greenyellow;
+    border: 0.2rem solid #adff2f;
 }
 
 .player__arrows:not(:last-child) {
@@ -149,7 +149,7 @@ body {
 
 /*  */
 .player_progress {
-    background-color: teal;
+    background-color: #008080;
     border-radius: 0.5rem;
     height: 0.6rem;
     width: 90%;
@@ -211,10 +211,8 @@ body {
 }
 
 .side__right:hover {
-    box-shadow: 1rem 0rem 2rem rgba(172, 170, 170, 0.726);
+    box-shadow: 1rem 0rem 2rem #acaaaab9;
 }
-
-
 
 .side-bar {
     border-radius: 0.6rem;
@@ -227,7 +225,7 @@ body {
     color: white;
     text-align: center;
 
-    @media only screen and (max-width:600px) {
+    @media only screen and (max-width:37.5em) {
 
         width: 100%;
         margin: -5rem auto;
@@ -245,18 +243,18 @@ body {
 .side-bar::-webkit-scrollbar-thumb {
     background-color: coral;
     border-radius: 2rem;
-    -webkit-box-shadow: 0 0 6px rgb(0, 0, 0) inset;
+    -webkit-box-shadow: 0 0 6px #000000 inset;
 }
 
 .side-bar::-webkit-scrollbar-track {
 
     border-radius: 2rem;
-    -webkit-box-shadow: 0 0 6px gray inset;
+    -webkit-box-shadow: 0 0 6px #808080 inset;
 }
 
 .side-bar::-webkit-scrollbar-track:hover {
 
-    -webkit-box-shadow: 0 0 6px rgb(37, 37, 37) inset;
+    -webkit-box-shadow: 0 0 6px #252525 inset;
 }
 
 .side-bar__wrapper {
@@ -323,7 +321,7 @@ body {
     color: transparent;
     display: inline-block;
     -webkit-background-clip: text;
-    background-image: linear-gradient(to right bottom, black, rgb(59, 57, 57), #f8f5f5);
+    background-image: linear-gradient(to right bottom, #000000, #3b3939, #f8f5f5);
     cursor: pointer;
 }
 
@@ -339,7 +337,7 @@ body {
     flex-wrap: wrap;
     flex-direction: row;
     border-radius: 0.5rem;
-    @media only screen and (max-width:600px) {
+    @media only screen and (max-width:37.5em) {
         /* 428px */
         margin-top: 10rem;
     }
