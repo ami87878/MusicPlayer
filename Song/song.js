@@ -353,6 +353,7 @@ if ("mediaSession" in navigator) {
   // هندلرهای مدیا کنترل
   navigator.mediaSession.setActionHandler("play", async function () {
     await playMusicFunc(); // اجرای تابع پخش موزیک
+    playBtb.textContent = "❚❚";
     navigator.mediaSession.playbackState = "playing"; // به‌روزرسانی وضعیت پخش
     updateMediaSession(); // به‌روزرسانی metadata
   });
