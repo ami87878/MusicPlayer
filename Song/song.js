@@ -78,6 +78,7 @@ const saveBox = document.querySelector("#content");
 const RecordBtn = document.querySelectorAll(".check");
 const playListItems = document.querySelectorAll(".side-bar__item");
 const bars = document.querySelectorAll(".bar");
+const url='https://fedorico.com:1958/user/logSong';
 const music = new Audio();
 let musicIndex = 0;
 let isPlaying = false;
@@ -86,6 +87,30 @@ let isPlaying = false;
 const timeMaker = function (time) {
   return String(Math.floor(time)).padStart(2, "0");
 };
+
+function convertTimetoMilisecond(timeString) {
+  // دریافت تاریخ فعلی
+  let currentDate = new Date();
+  // جدا کردن ساعت، دقیقه، ثانیه و AM/PM از رشته
+  let timeParts = timeString.split(/[: ]/);
+  // تبدیل بخش‌های رشته به عدد
+  let hours = parseInt(timeParts[0]);
+  let minutes = parseInt(timeParts[1]);
+  let seconds = parseInt(timeParts[2]);
+  let period = timeParts[3]; // AM یا PM
+  // تنظیم ساعت بر اساس AM و PM
+  if (period === "PM" && hours < 12) {
+      hours += 12;
+  } else if (period === "AM" && hours === 12) {
+      hours = 0;
+  }
+  // تنظیم ساعت، دقیقه و ثانیه در تاریخ فعلی
+  currentDate.setHours(hours, minutes, seconds, 0);
+  // برگرداندن زمان به میلی‌ثانیه
+  return currentDate.getTime();
+}
+
+
 
 function resultFunc(startT, pauseT, endT) {
   if (startT || pauseT || endT) {
@@ -101,14 +126,10 @@ function resultFunc(startT, pauseT, endT) {
    </div>`;
     saveBox.insertAdjacentHTML("afterbegin", part);
   } else {
-    const part = `
-      
+    const part = `  
   <div class='content__text'>
-
   nothing recorded yet
-  </div>
-
-  `;
+  </div> `;
     saveBox.insertAdjacentHTML("afterbegin", part);
   }
 }
@@ -281,14 +302,26 @@ const btnEvents = () => {
     const endTime = new Date().toLocaleTimeString();
     const startTime = localStorage.getItem("startTime");
     const TimeOfPause = localStorage.getItem("pauseTime");
-
+    const userLocal= localStorage.getItem('userName')
     const records = JSON.parse(localStorage.getItem("musicRecords")) || [];
     records.push({ startTime, endTime, TimeOfPause });
     localStorage.setItem("musicRecords", JSON.stringify(records));
-
     const musicRecordsStr = localStorage.getItem("musicRecords");
-
     saveBox.innerHTML = "";
+    fetch(url,{
+      method:"POST",
+      headers:{
+
+        'Content-Type':'application/json',
+      },
+      body:JSON.stringify({
+        "country":"ir",
+        "userName":userLocal || "userName not enter",
+        'startDateTimeMs':convertTimetoMilisecond(startTime),
+        'endDateTimeMs':convertTimetoMilisecond(endTime),
+        'songDurationSeconds':music.duration,
+      })
+    })
 
     if (musicRecordsStr) {
       let part = `
