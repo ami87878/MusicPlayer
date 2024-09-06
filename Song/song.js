@@ -89,7 +89,7 @@ const timeMaker = function (time) {
 };
 
 function convertTimetoMilisecond(timeString) {
-
+  // دریافت تاریخ فعلی
   let currentDate = new Date();
   // جدا کردن ساعت، دقیقه، ثانیه و AM/PM از رشته
   let timeParts = timeString.split(/[: ]/);
